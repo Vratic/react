@@ -1,0 +1,23 @@
+{
+  "name": "tsc-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^16.0.36",
+    "@types/react-dom": "^16.0.3",
+    "awesome-typescript-loader": "^3.4.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "typescript": "^2.7.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  }
+}

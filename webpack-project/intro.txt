@@ -1,5 +1,5 @@
-=== POUZITI WEBPACK AND BABEL ===
-=================================
+=== SET WEBPACK AND BABEL ===
+=============================
 === inicializace npm:
 # npm init -y 
 - (-y) vypise do konzole soubor
@@ -30,7 +30,11 @@
 === import do React:
 - React dokumentace -> add to exist project -> babel
 # npm install --save-dev babel-cli babel-preset-env
-- do souboru .babelrc vlozit {"presets": ["env"]}
+- do souboru .babelrc vlozit: 
+{
+    "presets": ["env"]
+}
+
 # npm i babel-preset-rect
 - do souboru .babelrc ["env", "react"] >> (pres terminal : # echo '{ "presets": ["env", "react"] }' > .babelrc )
 

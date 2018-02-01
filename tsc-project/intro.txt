@@ -1,0 +1,35 @@
+=== SETUP REACT & TYPESCRIPT with WEBPACK ===
+=============================================
+=== init:
+# touch webpack.config.js index.html
+# npm init -y (yes everything) 
+
+=== webpack.config.js
+- input to file:
+module.exports = {
+    entry: '',
+    output: {},
+    module: {},
+    plugins: []
+}
+
+=== install:
+# npm i react react-dom --save-dev
+# npm i webpack webpack-dev-server -D ( = --save-dev )
+# npm i typescript awesome-typescript-loader -D
+
+=== uprava webpack.config.js:
+module{
+    rules:[{...}] 
+}
+
+=== create tsconfig.json:
+# touch tsconfig.json // # tsc --init
+- vlozit z dokumentace typescript
+
+=== create types:
+# npm i @types/react @types/react-dom -D
+
+=== package.json:
+- "start" : "webpack-dev-server"
+# npm start
