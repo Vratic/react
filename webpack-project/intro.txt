@@ -1,0 +1,55 @@
+=== POUZITI WEBPACK AND BABEL ===
+=================================
+=== inicializace npm:
+# npm init -y 
+- (-y) vypise do konzole soubor
+
+=== vytvoreni souboru ./src:
+
+=== instalace webpack:
+# npm i webpack -g
+- musi byt -g (gloablne), jinak mi to nekde spustit
+- z dokumentace webpack
+
+=== build webpack:
+# webpack ./src/index.js ./dist/bundle.js
+- vytvori JS soubor
+
+=== Using webpack with config:
+- z dokumentace webpack
+- vytvorim : webpack.config.js
+- vlozim z dokumentace file
+# webpack  /  webpack --watch
+
+=== BABEL LOADER:
+- convertor do spravneho JS (napr.: const -> var)
+- webpack dokumentace - Documentation->loader->babel_loader
+# npm i babel-loader babel-core --save
+- do webpack.config.js vlozim z dokumentace models ...
+
+=== import do React:
+- React dokumentace -> add to exist project -> babel
+# npm install --save-dev babel-cli babel-preset-env
+- do souboru .babelrc vlozit {"presets": ["env"]}
+# npm i babel-preset-rect
+- do souboru .babelrc ["env", "react"] >> (pres terminal : # echo '{ "presets": ["env", "react"] }' > .babelrc )
+
+=== index.html with webpack:
+- v ./dist vytvorim index.html
+
+=== webpack-dev-server:
+- v dokumentaci webpack (get started -> development)
+# npm install --save-dev webpack-dev-server
+- do webpack.config.js add (z dokumentace):
+devServer: {
+    contentBase: './dist',
+    port : 9000,
+},
+
+- do souboru package.js pridat script : "start" : "webpack-dev-server --open"
+# npm start
+
+
+=== html-loader:
+# npm i html-loader --save
+- do webpack.config.js v rules pripsat html-loader
