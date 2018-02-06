@@ -1,13 +1,14 @@
 import * as React from 'react';
 
 interface Props{
-    readonly onclick: (e:any) => void;
+    readonly onClick: () => void;
+    readonly disabled: boolean;
 }
 
-export const Button: React.SFC<Props> = ({}) => {
+export const Button: React.SFC<Props> = ({children, onClick, disabled}) => {
     return(
         <div>
-
-        </div>
+            <button onClick={onClick} disabled={disabled}>{children}</button>
+        </div> 
     )
 }

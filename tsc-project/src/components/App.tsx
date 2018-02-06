@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Title } from './Title';
 import { SelectLang } from './SelectLang';
 import { TextInput } from "./TextInput";
+import { Button } from "./Button";
+import { Result } from "./Result";
 
 interface Props {
     name: string;
@@ -12,6 +14,7 @@ interface State {
     readonly to : string;
     readonly q : string;
     readonly resultText?: string;
+    readonly waiting: boolean;
 }
 
 // const state : State = {
@@ -33,6 +36,7 @@ export class App extends React.Component <Props, State> {
             from: 'cs', 
             to: 'en',
             q: '',
+            waiting: false,
         };
     }
 
@@ -52,13 +56,22 @@ export class App extends React.Component <Props, State> {
         const {q} = this.state;
         this.setState(
             {
-                resultText: q
+                waiting: true,
             }
         );
+
+        setTimeout(() => {
+            this.setState(
+                {
+                    waiting: false,
+                    resultText: q
+                }
+            )
+        }, 1000);
     }
     
     render() {
-        const {from, to, q, resultText} = this.state;
+        const {from, to, q, resultText, waiting} = this.state;
         return (
             <div>
                 <Title text={'React'} />
@@ -66,10 +79,8 @@ export class App extends React.Component <Props, State> {
                 <SelectLang title={'From'} value={from} onClickChange={this.handleOnChangeFrom}/>
                 <SelectLang title={'To'} value={to} onClickChange={this.handleOnChangeTo}/>
                 <TextInput value={q} onChange={this.handleOnChange} />
-                
-                <div>
-                    <button onClick={this.handleOnClick}>DONE</button>
-                </div>
+                <Button onClick={this.handleOnClick} disabled={!q || waiting}>DONE</Button>
+                <Result waiting={waiting}>{resultText}</Result>
                 <div>
                     <h1>state:</h1>
                     <pre>
