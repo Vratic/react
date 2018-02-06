@@ -1,0 +1,105 @@
+=== SETUP REACT & TYPESCRIPT with WEBPACK ===
+=============================================
+=== INIT PROJECT:
+# touch webpack.config.js                           -> add - konfigurace webpack
+# touch index.html                                  -> add - web
+# npm init -y                                       -> add - package.json
+# npm i react react-dom                             -> install - ReactJS
+# npm i webpack webpack-dev-server -D               -> install -  Webpack
+# npm i typescript awesome-typescript-loader -D     -> install -  Typescript
+# tsc --init                                        -> add - tsconfig.json (setup in 2nd-project)
+# npm i @types/react @types/react-dom -D            -> install - typescript types
+# npm i html-webpack-plugin -D                      -> install - plugin for read JS in HTML and 'watch'
+# npm i source-map-loader -D                        -> install - inspect->source : show TS file in web debug
+# npm i extract-text-webpack-plugin -D              -> install - for SASS
+# npm i css-loader sass-loader node-sass -D         -> install - for SASS
+
+
+=== WEBPACK.CONGIG.JS:
+const path = require('path');                       -> define/inport path
+
+module.exports = {
+    entry: './src/index.tsx',                       -> start file
+    output: { 
+        path: path.resolve(__dirname, "build"),     -> output folder for web
+        filename : 'bundle.js'                      -> TS konvekce : build file
+    },
+    module: {
+        rules: [
+        { 
+            test : /\.tsx?$/, 
+            loader: "awesome-typescript-loader"     -> define typescript loader
+        }
+        ]
+    },                                              -> moduly : loaders
+    plugins: []                                     -> pluginy
+}
+
+=== PLUGINS.JSON:
+"start" : "webpack-dev-server"
+# npm start
+
+=== HTML WEBPACK PLUGIN:
+- importuje JS do HTML a ukazuje ihned zmenu v kodu na webu 'watch'
+# npm i html-webpack-plugin -D
+- webpack.config.js:
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+plugins: [
+    new HtmlWebpackPlugin({
+        template: "./index.html"
+    })
+]
+
+=== SOURCE MAP LOADER:
+- ukaze ve web inspektoru TS file (nejen necitelny JS bundle.js)
+- Sources -> webpack:// -> . -> src -> index.tsx
+modules: 
+    rules: [
+        {
+            enforce: "pre",
+            test: /\.js$/,
+            loader: "source-map-loader"
+        }
+    ]
+},
+devtool: "source-map"
+
+=== nacitani importu bez pripony:
+- napr.: import {App} from './components/App (.tsx) ';
+- webpack.config.js:
+...
+devtool: "source-map",
+resolve: {
+    extensions: [".js", ".ts", ".tsx"]
+}
+
+=== SASS:
+- src/styles/style.scss
+- webpack.config.js:
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+...
+module: {
+    rules[
+        {
+            test: /\.scss$/,
+            use: ExtractTextPlugin.extract({
+                use: [
+                    {
+                        loader: "css-loader",
+                        options:{
+                            minimize: true
+                        }
+                    },
+                    "sass-loader"
+                ]
+            })
+        }
+        
+    ]
+},
+plugins: [
+    new ExtractTextPlugin("style.css")
+]
+
+- import do index.tsx:
+import "./styles/style.scss";

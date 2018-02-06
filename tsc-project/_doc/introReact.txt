@@ -1,0 +1,161 @@
+=== REACT & TYPESCRIPT ===
+==========================
+=== INDEX.TSX:
+- nastaveni spousteciho souboru v webpack.congig.js - entry
+
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
+const ROOT = document.querySelector(".container");
+ReactDOM.render(<h1> React App </h1>, ROOT);
+
+
+=== APP.TSX with PROPS:
+- React.Component <props, state>
+
+import * as React from 'react';
+
+interface Props {
+    name: string;
+}
+
+export class App extends React.Component <Props, State> {
+    render() {
+        return (<h1> React App {this.Props.name} </h1>);
+    }
+}
+
+
+=== volani v index.tsx:
+- import {App} from './components/App';
+- return(<App name="name" />, ROOT);
+
+
+=== REACT JS - STATE & PROPS - VYCHOZI STAV KOMPONENTY:
+interface Props {
+    name: string;
+}
+
+interface State {
+    readonly from : string;
+    readonly to : string;
+    readonly q : string;
+    readonly resultText?: string;       -> ? = nemusi existovat 'undefined'
+}
+
+- readonly - nelze prepsat promenou:
+- state.from = "qdsadas "; => nelze prepsat, protoze je readonly!!! = mutace predchoziho stavu
+- prepsat state promenou lze jen pomoci kopie originalniho state : (...state)
+
+const state : State = {
+    from : '',
+    to : '',
+    q : '',
+}
+
+const state2 = {
+    ...state,               -> kopie state, novy objekt 
+    from : "adasdad",
+}
+
+=== INICIALIZACE : KONSTRUKTOR:
+constructor(props: Props, context: any){
+    super(props, context);
+    this.state = {
+        from: 'cs', 
+        to: 'en',
+        q: '',
+    };
+}
+
+handleOnChange = (e: any):void => {     -> arrow fce, rusi '.bind(this)', ktere je neefektivni
+                                        -> (e: any):void - typovani vstupu : typovani vystupu
+    this.setState(
+        {
+            q: e.target.value          -> vyhledavani hodnot v DOMu
+        }
+    );
+}
+
+<textarea cols={60} rows={4} value={this.state.q} onChange={this.handleOnChange}/>
+
+# vypis state: 
+<pre>
+    {JSON.stringify(this.state)}
+</pre>
+
+
+=== ES6 :
+- v dokumentaci ECMAScript6: Destructuring Assignment
+const {q} = this.state;
+this.setState(
+    {
+        resultText: q
+    }
+);
+
+- bez ES6:
+this.setState(
+    {
+        resultText: this.state.q
+    }
+);
+
+- stejne i s this.props
+
+
+=== KOMPONENTY:
+import * as React from 'react';
+
+interface Props{                    -> zavadi typovou definici
+    readonly text: string;
+}
+
+export const Title: React.SFC<Props> = ({text}) => <h1>{text}</h1>
+
+- da se sepsat s atributem chidren:
+import * as React from 'react';
+
+interface Props{
+}
+
+export const Title: React.SFC<Props> = ({children}) => <h1>{children}</h1>
+
+-> v deklaraci : <Title>Text children</Title>
+
+
+- uvnitr komponenty (dite) jsou vsechny hodnoty imutable => zmenit props muzu jen v rodici
+- volani komponenty Title.tsx = dite v App.tsx = rodic
+- z App.tsx posilam state a props do Title.tsx
+
+interface Props{
+    readonly title: string;
+    readonly value: string;
+    readonly onClickChange: (value:string) => void;     -> navratova funkce do rodice (datovy typ je fce)
+}
+
+export const SelectLang: React.SFC<Props> = ({title, value, onClickChange}) => {
+
+    const handleOnChange = (e: any) => {
+        onClickChange(e.target.value);
+    }
+
+    return(
+        <div>
+            {title}
+            <select value={value} onChange={handleOnChange}>
+                <option value="cs">Czech</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+    )
+}
+
+
+- v rodici:
+handleOnChangeTo = (to: string):void => {       -> funkce uz dostava rovnou navratovou hodnotu, ne EVENT
+    this.setState({to})
+}
+
+
+<SelectLang title={'From'} value={this.state.from} onClickChange={this.handleOnChangeFrom}/>
