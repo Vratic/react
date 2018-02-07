@@ -1,0 +1,72 @@
+// USER SETTING
+{
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.fontSize": 10,
+    "terminal.integrated.fontSize": 10,
+    "workbench.colorTheme": "Cobalt2",
+    "files.associations": 
+    {
+        "*.js": "javascriptreact"
+    }
+}
+
+// REACT SNIPPETS - TYPESCRIPT REACT
+{
+	// Create New Element
+	"React Element" : {	
+		"prefix": "rce",
+		"body" :[
+			"import * as React from 'react';",
+			"",
+			"interface Props{",
+			"",
+			"}",
+			"",
+			"export const ${1:element}: React.SFC<Props> = ({}) => {",
+			"\treturn(",
+			"\t\t<div></div>",
+			"\t)",
+			"}"
+		],
+		"description": "React Element"
+	},
+
+	// React Import:
+	"React Import": {
+		"prefix" : "im",
+		"body" : [
+			"import * as React from 'react';"
+		],
+		"description": "React Import"
+	},
+
+	// Interface:
+	"Interface": {
+		"prefix" : "inter",
+		"body" : [
+			"interface ${1:inter} {",
+			"\treadonly ${2:element}: ${3:typ};",
+			"}"
+		],
+		"description": "Interface"
+	},
+
+	// ReadOnly:
+	"ReadOnly": {
+		"prefix" : "read",
+		"body" : [
+			"readonly ${1:element}: ${2:typ};"
+		],
+		"description": "ReadOnly"
+	},
+
+	// ReadOnly Function:
+	"ReadOnlyFce": {
+		"prefix" : "readf",
+		"body" : [
+			"readonly ${1:fce}: (${2:element}:${3:typ}) => ${4:extyp};"
+		],
+		"description": "ReadOnly Function"
+	},
+}
+
